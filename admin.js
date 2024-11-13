@@ -1,15 +1,15 @@
-// Admin password
 const adminPassword = "bhushitha";
 
 // Function to prompt for the admin password before accessing the page
 function adminLogin() {
     const password = prompt("Please enter admin password:");
+
     if (password === adminPassword) {
-        // Display admin container if the password is correct
+        // If the password is correct, display the admin container
         document.getElementById("adminContainer").style.display = "block";
         loadUsers();
     } else {
-        // Show alert and redirect to the home page if password is incorrect
+        // If the password is incorrect, alert the user and redirect to home page
         alert("Incorrect password!");
         window.location.href = "index.html";
     }
@@ -47,8 +47,3 @@ function loadUsers() {
         });
     }
 }
-
-// Call adminLogin function if admin page is accessed directly
-document.addEventListener("DOMContentLoaded", () => {
-    adminLogin();
-});
