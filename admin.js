@@ -1,5 +1,4 @@
-const adminUsername = "barunodonline@gmail.com";
-const adminPassword = "bhushitha2007#";
+const adminPassword = "bhushitha";
 
 function adminLogin() {
     const password = prompt("Please enter admin password:");
@@ -11,32 +10,14 @@ function adminLogin() {
     }
 }
 
-function addNewUser() {
-    const name = prompt("Enter Name:");
-    const address = prompt("Enter Address:");
-    const phone = prompt("Enter Phone Number:");
-    const email = prompt("Enter Email:");
-    const username = prompt("Enter Username:");
-    const password = prompt("Enter Password:");
-    const bankName = prompt("Enter Bank Name:");
-    const accountNumber = prompt("Enter Account Number:");
-    const accountName = prompt("Enter Account Name:");
-    const branch = prompt("Enter Branch:");
-
-    const newUser = { name, address, phone, email, username, password, bankName, accountNumber, accountName, branch };
-
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-    users.push(newUser);
-    localStorage.setItem("users", JSON.stringify(users));
-
-    alert("New user added!");
-    loadUsers();
-}
-
 function loadUsers() {
     const users = JSON.parse(localStorage.getItem("users")) || [];
     const userList = document.getElementById("userList");
     userList.innerHTML = "<h3>User List:</h3>";
+
+    if (users.length === 0) {
+        userList.innerHTML += "<p>No users have signed up yet.</p>";
+    }
 
     users.forEach((user, index) => {
         userList.innerHTML += `
@@ -49,23 +30,13 @@ function loadUsers() {
                 <p><strong>Account Number:</strong> ${user.accountNumber}</p>
                 <p><strong>Account Name:</strong> ${user.accountName}</p>
                 <p><strong>Branch:</strong> ${user.branch}</p>
-                <button onclick="deleteUser(${index})">Delete</button>
                 <hr>
             </div>
         `;
     });
 }
 
-function deleteUser(index) {
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    users.splice(index, 1);
-    localStorage.setItem("users", JSON.stringify(users));
-
-    alert("User deleted!");
-    loadUsers();
-}
-
-// Load users when admin page is loaded
+// Load users when the admin page is loaded
 window.onload = function() {
     loadUsers();
 };
