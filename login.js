@@ -9,7 +9,6 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
 
     if (user) {
         alert("Login successful!");
-        // Store the logged in user's username for later use
         localStorage.setItem("loggedInUser", username);
         window.location.href = "profile.html";
     } else {
