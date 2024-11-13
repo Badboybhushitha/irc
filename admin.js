@@ -1,58 +1,61 @@
-const adminUsername = "barunodonline@gmail.com";
+// Admin credentials
+const adminUsername = "B.Arunod";
 const adminPassword = "bhushitha2007#";
 
-function adminLogin() {
-    const password = prompt("Please enter admin password:");
-    if (password === adminPassword) {
-        window.location.href = "admin.html";
+// Login function for Admin access
+function login() {
+    const username = document.getElementById("adminUsername").value;
+    const password = document.getElementById("adminPassword").value;
+
+    if (username === adminUsername && password === adminPassword) {
+        document.getElementById("adminLogin").style.display = "none";
+        document.getElementById("adminContent").style.display = "block";
+        loadUserList();
     } else {
-        alert("Incorrect password!");
-        window.location.href = "index.html";
+        alert("ඔබ මේහි අයිතිකරුවා නොවන ලේස.");
     }
 }
 
-function addNewUser() {
-    const name = prompt("Enter Name:");
-    const address = prompt("Enter Address:");
-    const phone = prompt("Enter Phone Number:");
-    const email = prompt("Enter Email:");
-    const username = prompt("Enter Username:");
-    const password = prompt("Enter Password:");
-
-    const newUser = { name, address, phone, email, username, password };
-
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-    users.push(newUser);
-    localStorage.setItem("users", JSON.stringify(users));
-
-    alert("New user added!");
-}
-
-function loadUsers() {
+// Load user list on the Admin page
+function loadUserList() {
     const users = JSON.parse(localStorage.getItem("users")) || [];
     const userList = document.getElementById("userList");
-    userList.innerHTML = "<h3>User List:</h3>";
+    userList.innerHTML = ""; // Clear previous user list
 
     users.forEach((user, index) => {
-        userList.innerHTML += `
-            <div>
-                <p>${user.name} (${user.username})<br>(${user.address})<br>(${user.phone})<br>(${user.email})</p>
-                <button onclick="deleteUser(${index})">Delete</button>
-            </div>
+        const userDiv = document.createElement("div");
+        userDiv.classList.add("user-entry");
+        userDiv.innerHTML = `
+            <p><strong>Username:</strong> ${user.username}</p>
+            <p><strong>Email:</strong> ${user.email}</p>
+            <p><strong>Phone:</strong> ${user.phone}</p>
+            <button onclick="removeUser(${index})">Remove User</button>
         `;
+        userList.appendChild(userDiv);
     });
 }
 
-function deleteUser(index) {
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    users.splice(index, 1);
+// Function to add a new user
+document.getElementById("addUserForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    const username = document.getElementById("username").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const phone = document.getElementById("phone").value;
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    users.push({ username, email, password, phone });
     localStorage.setItem("users", JSON.stringify(users));
 
-    alert("User deleted!");
-    loadUsers();  // Refresh the user list
-}
+    loadUserList();
+    alert("User added successfully.");
+    this.reset();
+});
 
-// Load users when admin page is loaded
-window.onload = function() {
-    loadUsers();
-};
+// Remove a user from the list
+function removeUser(index) {
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    users.splice(index, 1);
+    localStorage.setItem("users", JSON.stringify(users));
+    loadUserList();
+                                         }
