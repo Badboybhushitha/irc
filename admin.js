@@ -1,40 +1,42 @@
-// admin.js
-window.onload = function() {
-    // Check if the user has entered the correct admin password
-    const isAdmin = localStorage.getItem("isAdminAuthenticated");
-    
-    if (!isAdmin) {
-        const password = prompt("Please enter the admin password:");
+// Admin password
+const adminPassword = "bhushitha";
 
-        if (password === "bhushitha") {
-            localStorage.setItem("isAdminAuthenticated", true);
-            loadUsers(); // Load users after successful authentication
-        } else {
-            alert("Incorrect password! You are not authorized to access this page.");
-            window.location.href = "index.html"; // Redirect to homepage if incorrect password
-        }
+// Function to prompt for the admin password before accessing the page
+function adminLogin() {
+    const password = prompt("Please enter admin password:");
+    if (password === adminPassword) {
+        document.getElementById("adminContainer").style.display = "block";
+        loadUsers();
     } else {
-        loadUsers(); // Load users if admin is already authenticated
+        alert("Incorrect password!");
+        window.location.href = "index.html";
     }
-};
+}
 
-// Load users from localStorage and display them in the admin page
+// Function to load users from local storage and display them in the admin panel
 function loadUsers() {
     const users = JSON.parse(localStorage.getItem("users")) || [];
     const userList = document.getElementById("userList");
     userList.innerHTML = "<h3>User List:</h3>";
 
-    users.forEach((user, index) => {
+    users.forEach((user) => {
         userList.innerHTML += `
             <div class="user-item">
                 <p><strong>Name:</strong> ${user.name}</p>
-                <p><strong>Phone Number:</strong> ${user.phone}</p>
+                <p><strong>Address:</strong> ${user.address}</p>
+                <p><strong>Phone:</strong> ${user.phone}</p>
                 <p><strong>Email:</strong> ${user.email}</p>
                 <p><strong>Username:</strong> ${user.username}</p>
-                <p><strong>Bank Details:</strong> ${user.bankName}, ${user.accountName}, ${user.accountNumber}, Branch: ${user.branch}</p>
-                <p><strong>Signup Date:</strong> ${user.signupDate}</p>
+                <p><strong>Password:</strong> ${user.password}</p>
+                <p><strong>Bank Details:</strong></p>
+                <ul>
+                    <li><strong>Bank Name:</strong> ${user.bankDetails.bankName}</li>
+                    <li><strong>Account Number:</strong> ${user.bankDetails.accountNumber}</li>
+                    <li><strong>Account Name:</strong> ${user.bankDetails.accountName}</li>
+                    <li><strong>Branch:</strong> ${user.bankDetails.branch}</li>
+                </ul>
                 <hr>
             </div>
         `;
     });
-        }
+}
