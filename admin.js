@@ -36,7 +36,7 @@ function loadUsers() {
     users.forEach((user, index) => {
         userList.innerHTML += `
             <div>
-                <p>${user.name} (${user.username})</p>
+                <p>${user.name} (${user.username})<br>(${user.address})<br>(${user.phone})<br>(${user.email})</p>
                 <button onclick="deleteUser(${index})">Delete</button>
             </div>
         `;
