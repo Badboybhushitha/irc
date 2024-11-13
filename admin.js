@@ -1,6 +1,21 @@
 // admin.js
 window.onload = function() {
-    loadUsers();
+    // Check if the user has entered the correct admin password
+    const isAdmin = localStorage.getItem("isAdminAuthenticated");
+    
+    if (!isAdmin) {
+        const password = prompt("Please enter the admin password:");
+
+        if (password === "bhushitha") {
+            localStorage.setItem("isAdminAuthenticated", true);
+            loadUsers(); // Load users after successful authentication
+        } else {
+            alert("Incorrect password! You are not authorized to access this page.");
+            window.location.href = "index.html"; // Redirect to homepage if incorrect password
+        }
+    } else {
+        loadUsers(); // Load users if admin is already authenticated
+    }
 };
 
 // Load users from localStorage and display them in the admin page
@@ -22,4 +37,4 @@ function loadUsers() {
             </div>
         `;
     });
-}
+        }
