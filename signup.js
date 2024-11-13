@@ -29,7 +29,7 @@ document.getElementById("signupForm").addEventListener("submit", function(event)
         branch
     };
 
-    // Saving user data to localStorage
+    // Saving user data to localStorage (persistent storage)
     let users = JSON.parse(localStorage.getItem("users")) || [];
     users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));
