@@ -18,8 +18,12 @@ function addNewUser() {
     const email = prompt("Enter Email:");
     const username = prompt("Enter Username:");
     const password = prompt("Enter Password:");
+    const bankName = prompt("Enter Bank Name:");
+    const accountNumber = prompt("Enter Account Number:");
+    const accountName = prompt("Enter Account Name:");
+    const branch = prompt("Enter Branch:");
 
-    const newUser = { name, address, phone, email, username, password };
+    const newUser = { name, address, phone, email, username, password, bankName, accountNumber, accountName, branch };
 
     let users = JSON.parse(localStorage.getItem("users")) || [];
     users.push(newUser);
@@ -41,7 +45,10 @@ function loadUsers() {
                 <p><strong>Phone Number:</strong> ${user.phone}</p>
                 <p><strong>Email:</strong> ${user.email}</p>
                 <p><strong>Username:</strong> ${user.username}</p>
-                <p><strong>Password:</strong> ${user.password}</p>
+                <p><strong>Bank Name:</strong> ${user.bankName}</p>
+                <p><strong>Account Number:</strong> ${user.accountNumber}</p>
+                <p><strong>Account Name:</strong> ${user.accountName}</p>
+                <p><strong>Branch:</strong> ${user.branch}</p>
                 <button onclick="deleteUser(${index})">Delete</button>
                 <hr>
             </div>
