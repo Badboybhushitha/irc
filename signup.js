@@ -4,20 +4,33 @@ function sendSignupDetailsToWhatsApp(user) {
     window.open(whatsappURL, '_blank');
 }
 
+function saveUserToLocalStorage(user) {
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+    users.push(user);
+    localStorage.setItem('users', JSON.stringify(users));
+}
+
 function handleSignupFormSubmission(event) {
     event.preventDefault();
 
     const user = {
         name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
         address: document.getElementById('address').value,
+        phone: document.getElementById('phone').value,
+        email: document.getElementById('email').value,
         bankName: document.getElementById('bankName').value,
         accountNumber: document.getElementById('accountNumber').value,
         accountName: document.getElementById('accountName').value,
-        branch: document.getElementById('branch').value
+        branch: document.getElementById('branch').value,
+        username: document.getElementById('username').value,
+        password: document.getElementById('password').value
     };
 
-    // After saving user details, send to WhatsApp
+    // Save user details locally for the Admin page and send to WhatsApp
+    saveUserToLocalStorage(user);
     sendSignupDetailsToWhatsApp(user);
-        }
+
+    alert("Signup successful! User details have been saved.");
+}
+
+document.getElementById('signupForm').addEventListener('submit', handleSignupFormSubmission);
