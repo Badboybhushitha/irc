@@ -2,16 +2,29 @@ const adminPassword = "bhushitha";
 
 // Function to prompt for the admin password before accessing the page
 function adminLogin() {
-    const password = prompt("Please enter admin password:");
+    // Check if the password is already saved in localStorage to avoid repetitive prompt
+    const savedPassword = localStorage.getItem("adminPassword");
 
-    if (password === adminPassword) {
-        // If the password is correct, display the admin container
+    if (savedPassword) {
+        // If password is already saved, directly show the admin panel
         document.getElementById("adminContainer").style.display = "block";
         loadUsers();
     } else {
-        // If the password is incorrect, alert the user and redirect to home page
-        alert("Incorrect password!");
-        window.location.href = "index.html";
+        // Prompt the user to enter the password
+        const password = prompt("Please enter admin password:");
+
+        if (password === adminPassword) {
+            // Save the correct password in localStorage for future use
+            localStorage.setItem("adminPassword", adminPassword);
+
+            // If the password is correct, display the admin container
+            document.getElementById("adminContainer").style.display = "block";
+            loadUsers();
+        } else {
+            // If the password is incorrect, alert the user and redirect to home page
+            alert("Incorrect password!");
+            window.location.href = "index.html";
+        }
     }
 }
 
