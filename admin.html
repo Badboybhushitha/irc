@@ -1,18 +1,39 @@
 <!DOCTYPE html>
-<html lang="si">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Lanka Buy</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="form-container">
-        <h2>Admin Panel</h2>
-        <button onclick="addNewUser()">+ Add New User</button>
+
+    <!-- Admin login section -->
+    <div id="adminLogin">
+        <h2>Admin Login</h2>
+        <label for="adminUsername">Username:</label>
+        <input type="text" id="adminUsername" placeholder="Enter Username" required>
+        <label for="adminPassword">Password:</label>
+        <input type="password" id="adminPassword" placeholder="Enter Password" required>
+        <button onclick="login()">Log In</button>
+    </div>
+
+    <!-- Main admin content section, hidden until login -->
+    <div id="adminContent" style="display: none;">
+        <h2>Welcome, Admin</h2>
+        <h3>Add New User</h3>
+        <form id="addUserForm">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <input type="text" id="phone" placeholder="Phone Number" required>
+            <button type="submit">Add User</button>
+        </form>
+
+        <h3>Registered Users</h3>
         <div id="userList"></div>
     </div>
 
     <script src="admin.js"></script>
 </body>
-</html>
+    </html>
