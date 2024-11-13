@@ -26,6 +26,7 @@ function addNewUser() {
     localStorage.setItem("users", JSON.stringify(users));
 
     alert("New user added!");
+    loadUsers();  // Refresh the user list
 }
 
 function loadUsers() {
@@ -41,6 +42,10 @@ function loadUsers() {
                 <p><strong>Email:</strong> ${user.email}</p>
                 <p><strong>Username:</strong> ${user.username}</p>
                 <p><strong>Password:</strong> ${user.password}</p>
+                <p><strong>Bank Name:</strong> ${user.bankName}</p>
+                <p><strong>Account Number:</strong> ${user.accountNumber}</p>
+                <p><strong>Account Name:</strong> ${user.accountName}</p>
+                <p><strong>Branch:</strong> ${user.branch}</p>
                 <button onclick="deleteUser(${index})">Delete</button>
                 <hr>
             </div>
