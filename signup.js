@@ -1,36 +1,25 @@
-function sendSignupDetailsToWhatsApp(user) {
-    const message = `New User Registered: \nName: ${user.name}\nEmail: ${user.email}\nPhone: ${user.phone}\nAddress: ${user.address}\n\nBank Details:\nBank Name: ${user.bankName}\nAccount Number: ${user.accountNumber}\nAccount Name: ${user.accountName}\nBranch: ${user.branch}`;
-    const whatsappURL = `https://wa.me/+94788054702?text=${encodeURIComponent(message)}`;
-    window.open(whatsappURL, '_blank');
-}
-
-function saveUserToLocalStorage(user) {
-    let users = JSON.parse(localStorage.getItem('users')) || [];
-    users.push(user);
-    localStorage.setItem('users', JSON.stringify(users));
-}
-
-function handleSignupFormSubmission(event) {
+document.getElementById("signupForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
-    const user = {
-        name: document.getElementById('name').value,
-        address: document.getElementById('address').value,
-        phone: document.getElementById('phone').value,
-        email: document.getElementById('email').value,
-        bankName: document.getElementById('bankName').value,
-        accountNumber: document.getElementById('accountNumber').value,
-        accountName: document.getElementById('accountName').value,
-        branch: document.getElementById('branch').value,
-        username: document.getElementById('username').value,
-        password: document.getElementById('password').value
-    };
+    const name = document.getElementById("signupName").value;
+    const address = document.getElementById("signupAddress").value;
+    const phone = document.getElementById("signupPhone").value;
+    const email = document.getElementById("signupEmail").value;
+    const username = document.getElementById("signupUsername").value;
+    const password = document.getElementById("signupPassword").value;
 
-    // Save user details locally for the Admin page and send to WhatsApp
-    saveUserToLocalStorage(user);
-    sendSignupDetailsToWhatsApp(user);
+    const newUser = { name, address, phone, email, username, password };
 
-    alert("Signup successful! User details have been saved.");
-}
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    users.push(newUser);
+    localStorage.setItem("users", JSON.stringify(users));
 
-document.getElementById('signupForm').addEventListener('submit', handleSignupFormSubmission);
+    alert("Signup successful! Details sent to admin.");
+
+    // Send signup details to WhatsApp
+    const whatsappMessage = `New User Signup:\nName: ${name}\nAddress: ${address}\nPhone: ${phone}\nEmail: ${email}\nUsername: ${username}`;
+    const whatsappURL = `https://wa.me/94788054702?text=${encodeURIComponent(whatsappMessage)}`;
+    window.open(whatsappURL, "_blank");
+
+    window.location.href = "login.html";
+});
