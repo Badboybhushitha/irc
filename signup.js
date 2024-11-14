@@ -1,30 +1,32 @@
-document.getElementById("signupForm").addEventListener("submit", function(event) {
-    event.preventDefault();
+document.getElementById('signupForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-    // Collect user input
-    const name = document.getElementById("name").value;
-    const address = document.getElementById("address").value;
-    const phone = document.getElementById("phone").value;
-    const email = document.getElementById("email").value;
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-
-    // Collect bank details
-    const bankDetails = {
-        bankName: document.getElementById("bankName").value,
-        accountNumber: document.getElementById("accountNumber").value,
-        accountName: document.getElementById("accountName").value,
-        branch: document.getElementById("branch").value
+    // Collect form data
+    const formData = {
+        name: document.getElementById('name').value,
+        address: document.getElementById('address').value,
+        phone: document.getElementById('phone').value,
+        email: document.getElementById('email').value,
+        username: document.getElementById('username').value,
+        password: document.getElementById('password').value,
+        bankDetails: {
+            bankName: document.getElementById('bankName').value,
+            accountNumber: document.getElementById('accountNumber').value,
+            accountName: document.getElementById('accountName').value,
+            branch: document.getElementById('branch').value
+        }
     };
 
-    // Create a user object with all details
-    const newUser = { name, address, phone, email, username, password, bankDetails };
+    // Send data to the server
+    const response = await fetch('http://localhost:3000/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+    });
 
-    // Save to local storage
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-    users.push(newUser);
-    localStorage.setItem("users", JSON.stringify(users));
-
-    alert("Signup successful!");
-    window.location.href = "index.html";
+    if (response.ok) {
+        alert('Signup successful! Details sent to WhatsApp.');
+    } else {
+        alert('Signup failed.');
+    }
 });
