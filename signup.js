@@ -1,5 +1,3 @@
-// signup.js
-
 // Function to handle form submission
 document.getElementById('signupForm').addEventListener('submit', function (e) {
     e.preventDefault(); // Prevent form from submitting the default way
@@ -50,11 +48,23 @@ function createDownloadableImage(text) {
         yPosition += 30;
     });
 
-    // Create download link
+    // Create download link with styling
     const imageUrl = canvas.toDataURL('image/png');
     const downloadLink = document.createElement('a');
     downloadLink.href = imageUrl;
     downloadLink.download = 'Signup_Details.png';
     downloadLink.textContent = 'Download Signup Details';
+
+    // Apply styles to make the button yellow and visually appealing
+    downloadLink.style.display = 'inline-block';
+    downloadLink.style.padding = '10px 20px';
+    downloadLink.style.marginTop = '20px';
+    downloadLink.style.backgroundColor = '#FFD700'; // Yellow color
+    downloadLink.style.color = '#333'; // Dark text for contrast
+    downloadLink.style.borderRadius = '5px'; // Rounded corners
+    downloadLink.style.textDecoration = 'none'; // Remove underline
+    downloadLink.style.fontWeight = 'bold';
+    downloadLink.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)'; // Subtle shadow
+
     document.body.appendChild(downloadLink);
 }
