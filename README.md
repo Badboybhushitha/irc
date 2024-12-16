@@ -1,2 +1,0 @@
-# Lanka-Buy
-Drop Shipping 
